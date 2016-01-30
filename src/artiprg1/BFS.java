@@ -55,6 +55,7 @@ public class BFS implements Search {
         return null;
     }
 
+    @Override
     public String nextMove()
     {
         return successMoves.pop();

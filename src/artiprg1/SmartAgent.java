@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Stack;
 
 import artiprg1.State.Orientation;
 
@@ -14,6 +15,7 @@ public class SmartAgent implements Agent {
 	private State iState = new State();
 	private Random random = new Random();
 	private Search searchResult;
+	
 	/* Frontier ordering:
 		DFS- New nodes are inserted at back of frontier. Queue.
 		BFS- New nodes are inserted at front of frontier. Stack.
