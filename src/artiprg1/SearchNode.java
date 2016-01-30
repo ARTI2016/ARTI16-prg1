@@ -1,10 +1,16 @@
 package artiprg1;
 
-public class SearchNode {
+public class SearchNode{
 	private State state;
 	private SearchNode parent;
 	private String action;
 	private int cost;
+	
+	public SearchNode(State state, String action, SearchNode parent){
+		this.state = state;
+        this.action = action;
+        this.parent = parent;
+	}
 	
 	public int getCost() {
 		return cost;

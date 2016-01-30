@@ -13,6 +13,7 @@ public class SmartAgent implements Agent {
 	
 	private State iState = new State();
 	private Random random = new Random();
+	private Search searchResult;
 	/* Frontier ordering:
 		DFS- New nodes are inserted at back of frontier. Queue.
 		BFS- New nodes are inserted at front of frontier. Stack.
@@ -75,6 +76,7 @@ public class SmartAgent implements Agent {
 			}
 		}
 		iState.printState();
+		searchResult = new BFS(iState);
     }
 
 	@Override
@@ -84,8 +86,6 @@ public class SmartAgent implements Agent {
 			System.out.print("'" + percept + "', ");
 		}
 		System.out.println("");
-		String[] actions = { "TURN_ON", "TURN_OFF", "TURN_RIGHT", "TURN_LEFT", "GO", "SUCK" };
-		return actions[random.nextInt(actions.length)];
+		return searchResult.nextMove();
 	}
-
 }
