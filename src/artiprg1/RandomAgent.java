@@ -1,12 +1,18 @@
+package artiprg1;
 import java.util.Collection;
-import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SmartAgent implements Agent {
+public class RandomAgent implements Agent
+{
+	private Random random = new Random();
 
-	@Override
-	public void init(Collection<String> percepts) {
+	/*
+		init(Collection<String> percepts) is called once before you have to select the first action. Use it to find a plan. Store the plan and just execute it step by step in nextAction.
+	*/
+
+    public void init(Collection<String> percepts) {
 		/*
 			Possible percepts are:
 			- "(SIZE x y)" denoting the size of the environment, where x,y are integers
@@ -24,10 +30,8 @@ public class SmartAgent implements Agent {
 				if (perceptName.equals("HOME")) {
 					Matcher m = Pattern.compile("\\(\\s*HOME\\s+([0-9]+)\\s+([0-9]+)\\s*\\)").matcher(percept);
 					if (m.matches()) {
-						
 						System.out.println("robot is at " + m.group(1) + "," + m.group(2));
 					}
-	
 				} else {
 					System.out.println("other percept:" + percept);
 				}
@@ -37,10 +41,13 @@ public class SmartAgent implements Agent {
 		}
     }
 
-	@Override
-	public String nextAction(Collection<String> percepts) {
-		// TODO Auto-generated method stub
-		return null;
+    public String nextAction(Collection<String> percepts) {
+		System.out.print("perceiving:");
+		for(String percept:percepts) {
+			System.out.print("'" + percept + "', ");
+		}
+		System.out.println("");
+		String[] actions = { "TURN_ON", "TURN_OFF", "TURN_RIGHT", "TURN_LEFT", "GO", "SUCK" };
+		return actions[random.nextInt(actions.length)];
 	}
-
 }

@@ -1,0 +1,24 @@
+We can construct the search tree implicitly using a node class.
+
+Node{
+State current
+Node parent
+String action taken to enter this state
+Int cost of entering this state}
+--
+How to do the search:
+
+create start state
+frontier = {start}
+while(true):
+	if frontier is empty, return "fail"
+current = frontier.pop()
+if current.isGoal() return "success"
+for each legal action in current state:
+	frontier.add(new Node with current state expanded);
+
+This finds a goal node, and the path taken to that goal node is the solution.
+--
+example admissible heuristic: (# of Dirts - 1)*Min distance between dirts +
+				Manhattan distance from Home to furthest dirt +
+				Manhattan distance from agent to furthest dirt

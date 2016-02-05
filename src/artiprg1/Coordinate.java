@@ -1,3 +1,4 @@
+package artiprg1;
 
 public class Coordinate {
 	private int x;

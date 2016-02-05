@@ -1,3 +1,4 @@
+package artiprg1;
 import java.util.Collection;
 
 public interface Agent
