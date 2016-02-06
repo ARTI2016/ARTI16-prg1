@@ -28,13 +28,21 @@ public class State {
 		ori = null;
 	}
 	
-	//WIP print function to see if we're constructing these right
+	//Print function to see if we're constructing these right
 	public void printState() {
 		System.out.println("dirt list:");
-		dirt.toString();
+		for(Coordinate d : dirt) {
+			System.out.println("Dirt at: " + d.getX() + "," + d.getY());
+		}
 		System.out.println("obstacle list:");
-		obstacles.toString();
-		
+		for(Coordinate o : obstacles) {
+			System.out.println("Obstacle at: " + o.getX() + "," + o.getY());
+		}
+		System.out.println("Home: " + home.getX() + "," + home.getY());
+		System.out.println("Size: " + size.getX() + "," + size.getY());
+		if(isOn) System.out.println("Agent is on");
+		else System.out.println("Agent is off");
+		System.out.println(ori.toString());
 	}
 	
 	public void setDirt(ArrayList<Coordinate> dlist) {

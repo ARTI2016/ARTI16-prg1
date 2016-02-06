@@ -69,7 +69,7 @@ public class SmartAgent implements Agent {
 				iState.setSize(new Coordinate(x_size, y_size));
 			}
 		}
-		
+		iState.printState();
     }
 
 	@Override
