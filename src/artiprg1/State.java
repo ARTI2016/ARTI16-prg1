@@ -101,23 +101,27 @@ public class State {
 		 */
 		for(Coordinate o : obstacles) {
 			switch(ori) {
-				case NORTH: if(((currentPos.getY() + 1) == o.getY())
+				case NORTH: if(!((currentPos.getY() + 1) == o.getY())
 								&& (currentPos.getX() == o.getX())) {
+					actions.add("GO");
 					break;
 				}
-				case SOUTH: if(((currentPos.getY() - 1) == o.getY())
+				case SOUTH: if(!((currentPos.getY() - 1) == o.getY())
 						&& (currentPos.getX() == o.getX())) {
+					actions.add("GO");
 					break;
 				}
-				case EAST: if(((currentPos.getX() + 1) == o.getX())
+				case EAST: if(!((currentPos.getX() + 1) == o.getX())
 						&& (currentPos.getY() == o.getY())) {
+					actions.add("GO");
 					break;
 				}
-				case WEST: if(((currentPos.getX() - 1) == o.getX())
+				case WEST: if(!((currentPos.getX() - 1) == o.getX())
 						&& (currentPos.getY() == o.getY())) {
+					actions.add("GO");
 					break;
 				}
-				default:actions.add("GO");
+				default:break;
 			}
 		}
 		actions.add("TURN_LEFT");

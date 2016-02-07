@@ -1,23 +1,20 @@
 package artiprg1;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Queue;
+//import java.util.ArrayList;
 import java.util.Stack;
 
 public class DFS implements Search {
 	/**
-	 * TODO: Frontier, 
+	 * gotta implement stuff 
 	 */
-	private Queue<SearchNode> frontier = new LinkedList<SearchNode>();
-	private ArrayList<String> legalActions = new ArrayList<String>();
+	private Stack<SearchNode> frontier = new Stack<SearchNode>();
+	//private ArrayList<String> legalActions = new ArrayList<String>();
 	private Stack<String> solution = new Stack<String>();
 	private SearchNode current;
 	
 	public DFS(State initial) {
 		frontier.add(new SearchNode(initial, null, null));
-		if(search()) {
+		if(!search()) {
 			System.out.println("Search failed!");
 		};
 	}
@@ -27,7 +24,7 @@ public class DFS implements Search {
 			if(frontier.isEmpty()) {
 				return false;
 			}
-			current = frontier.remove();
+			current = frontier.pop();
 			if(current.getState().isGoal()) {
 				//Trace back up and construct solution
 				for(SearchNode n = current; n != null; n = n.getParent()) {
@@ -46,9 +43,7 @@ public class DFS implements Search {
 						continue expand;
 					}
 				}
-				if(!frontier.offer(nextNode)) {
-					System.out.println("Failed to add node to frontier!");
-				}
+				frontier.push(nextNode);
 			}
 		}
 	}
