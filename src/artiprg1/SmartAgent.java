@@ -13,6 +13,11 @@ public class SmartAgent implements Agent {
 	
 	private State iState = new State();
 	private Random random = new Random();
+	/* Frontier ordering:
+		DFS- New nodes are inserted at back of frontier. Queue.
+		BFS- New nodes are inserted at front of frontier. Stack.
+		Uniform- Nodes are sorted in increasing cost. Priority Queue.
+	 */
 	
 	@Override
 	public void init(Collection<String> percepts) {

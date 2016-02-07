@@ -38,3 +38,9 @@ worse than DFS.
 
 Uniform Search: 
 Both complete and optimal. Its time and space complexity are O(b^(1+C/e)).
+--
+Frontier ordering:
+
+DFS- New nodes are inserted at back of frontier
+BFS- New nodes are inserted at front of frontier
+Uniform- Nodes are sorted in increasing cost
