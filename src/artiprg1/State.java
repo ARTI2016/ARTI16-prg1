@@ -32,12 +32,14 @@ public class State {
 	public void printState() {
 		System.out.println("dirt list:");
 		for(Coordinate d : dirt) {
-			System.out.println("Dirt at: " + d.getX() + "," + d.getY());
+			System.out.print("(" + d.getX() + "," + d.getY() + ")" + ", ");
 		}
+		System.out.println();
 		System.out.println("obstacle list:");
 		for(Coordinate o : obstacles) {
-			System.out.println("Obstacle at: " + o.getX() + "," + o.getY());
+			System.out.print("(" + o.getX() + "," + o.getY() + ")" + ", ");
 		}
+		System.out.println();
 		System.out.println("Home: " + home.getX() + "," + home.getY());
 		System.out.println("Size: " + size.getX() + "," + size.getY());
 		if(isOn) System.out.println("Agent is on");
@@ -96,33 +98,30 @@ public class State {
 			if(d.equals(currentPos)) actions.add("SUCK");
 			return actions;
 		}
-		/**
-		 * If there's a wall in front of the agent, do not go forward.
-		 */
+		//If square in front of agent is empty, GO is legal move.
+		Coordinate nextSquare = new Coordinate();
+		switch(ori) {
+		case NORTH:
+			nextSquare.set(this.currentPos.getX(), this.currentPos.getY() + 1);
+			break;
+		case SOUTH:
+			nextSquare.set(this.currentPos.getX(), this.currentPos.getY() - 1);
+			break;
+		case EAST:
+			nextSquare.set(this.currentPos.getX() + 1, this.currentPos.getY());
+			break;
+		case WEST:
+			nextSquare.set(this.currentPos.getX() - 1, this.currentPos.getY());
+			break;
+		}
+		boolean isBlocked = false;
 		for(Coordinate o : obstacles) {
-			switch(ori) {
-				case NORTH: if(!((currentPos.getY() + 1) == o.getY())
-								&& (currentPos.getX() == o.getX())) {
-					actions.add("GO");
-					break;
-				}
-				case SOUTH: if(!((currentPos.getY() - 1) == o.getY())
-						&& (currentPos.getX() == o.getX())) {
-					actions.add("GO");
-					break;
-				}
-				case EAST: if(!((currentPos.getX() + 1) == o.getX())
-						&& (currentPos.getY() == o.getY())) {
-					actions.add("GO");
-					break;
-				}
-				case WEST: if(!((currentPos.getX() - 1) == o.getX())
-						&& (currentPos.getY() == o.getY())) {
-					actions.add("GO");
-					break;
-				}
-				default:break;
+			if(nextSquare.equals(o)) {
+				isBlocked = true;
 			}
+		}
+		if(!isBlocked) {
+			actions.add("GO");
 		}
 		actions.add("TURN_LEFT");
 		actions.add("TURN_RIGHT");
@@ -144,10 +143,18 @@ public class State {
 			copy.dirt.add(new Coordinate(d.getX(), d.getY()));
 		}
 		switch(this.ori) {
-			case NORTH: copy.setOrientation(Orientation.NORTH);
-			case SOUTH: copy.setOrientation(Orientation.SOUTH);
-			case EAST: copy.setOrientation(Orientation.EAST);
-			case WEST: copy.setOrientation(Orientation.WEST);
+			case NORTH: 
+				copy.setOrientation(Orientation.NORTH);
+				break;
+			case SOUTH: 
+				copy.setOrientation(Orientation.SOUTH);
+				break;
+			case EAST: 
+				copy.setOrientation(Orientation.EAST);
+				break;
+			case WEST:
+				copy.setOrientation(Orientation.WEST);
+				break;
 		}
 		return copy;
 	}
