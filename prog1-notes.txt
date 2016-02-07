@@ -22,3 +22,19 @@ This finds a goal node, and the path taken to that goal node is the solution.
 example admissible heuristic: (# of Dirts - 1)*Min distance between dirts +
 				Manhattan distance from Home to furthest dirt +
 				Manhattan distance from agent to furthest dirt
+
+Estimated size of state space: W*L*D*4
+
+Estimated performance of:
+
+DFS: Not great. It is incomplete without a check for duplicate visited states,
+and not optimal. Its time complexity of O(b^m) is massively worse than BFS in 
+the worst case, but its space complexity of O(bm) is significantly better than 
+that of BFS.
+
+BFS: Some good, some bad. It's complete, but not optimal. Its time complexity of
+O(b^d) is better than DFS, and its space complexity of O(b^d) is significantly 
+worse than DFS.
+
+Uniform Search: 
+Both complete and optimal. Its time and space complexity are O(b^(1+C/e)).
