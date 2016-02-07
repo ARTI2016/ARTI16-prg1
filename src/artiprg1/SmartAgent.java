@@ -42,6 +42,7 @@ public class SmartAgent implements Agent {
 				index++;
 				while(Character.isDigit(p.charAt(index))) y_start = y_start * 10 + Character.getNumericValue(p.charAt(index++));
 				iState.setHome(new Coordinate(x_start, y_start));
+				iState.setCurrentPos(new Coordinate(x_start, y_start));
 			}
 			else if (p.startsWith("(ORIENTATION"))
 			{
@@ -78,7 +79,7 @@ public class SmartAgent implements Agent {
 			}
 		}
 		iState.printState();
-		searchResult = new BFS(iState);
+		searchResult = new DFS(iState);
     }
 
 	@Override

@@ -88,6 +88,10 @@ public class State {
 			actions.add("TURN_ON");
 			return actions;
 		}
+		if(isOn && currentPos.equals(home) && dirt.isEmpty()) {
+			actions.add("TURN_OFF");
+			return actions;
+		}
 		for(Coordinate d : dirt) {
 			if(d.equals(currentPos)) actions.add("SUCK");
 			return actions;
@@ -210,4 +214,16 @@ public class State {
 		}
 		return nextState;
 	}
+	
+	@Override
+    public boolean equals(Object obj)
+    {
+		State s = (State) obj;
+        if (this.size.equals(s.size) && this.currentPos.equals(s.currentPos)
+        		&& this.isOn == s.isOn && this.ori == s.ori
+        		&& this.dirt.equals(s.dirt) && this.obstacles.equals(s.obstacles)
+        		&& this.home.equals(s.home))
+            return true;
+        return false;
+    }
 }
