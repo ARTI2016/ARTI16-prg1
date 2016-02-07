@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Stack;
 
 import artiprg1.State.Orientation;
 
@@ -13,6 +12,7 @@ public class SmartAgent implements Agent {
 	
 	private State iState = new State();
 	private Random random = new Random();
+	private Stack<String> toDo;
 	/* Frontier ordering:
 		DFS- New nodes are inserted at back of frontier. Queue.
 		BFS- New nodes are inserted at front of frontier. Stack.
@@ -79,13 +79,7 @@ public class SmartAgent implements Agent {
 
 	@Override
 	public String nextAction(Collection<String> percepts) {
-		System.out.print("perceiving:");
-		for(String percept:percepts) {
-			System.out.print("'" + percept + "', ");
-		}
-		System.out.println("");
-		String[] actions = { "TURN_ON", "TURN_OFF", "TURN_RIGHT", "TURN_LEFT", "GO", "SUCK" };
-		return actions[random.nextInt(actions.length)];
+		return toDo.pop();
 	}
 
 }

@@ -117,7 +117,93 @@ public class State {
 		return actions;
 	}
 	
-	public State expandState() {
-		return null;
+	private State copyState() {
+		State copy = new State();
+		copy.setCurrentPos(new Coordinate(this.currentPos.getX(), this.currentPos.getY()));
+		copy.setSize(new Coordinate(this.size.getX(), this.size.getY()));
+		copy.setHome(new Coordinate(this.home.getX(), this.home.getY()));
+		if(this.isOn) {
+			copy.setOn(true);
+		}
+		for(Coordinate o : this.obstacles) {
+			copy.obstacles.add(new Coordinate(o.getX(), o.getY()));
+		}
+		for(Coordinate d : this.dirt) {
+			copy.dirt.add(new Coordinate(d.getX(), d.getY()));
+		}
+		switch(this.ori) {
+			case NORTH: copy.setOrientation(Orientation.NORTH);
+			case SOUTH: copy.setOrientation(Orientation.SOUTH);
+			case EAST: copy.setOrientation(Orientation.EAST);
+			case WEST: copy.setOrientation(Orientation.WEST);
+		}
+		return copy;
+	}
+	
+	public State expandState(String action) {
+		State nextState = copyState();
+		if(action == "TURN_ON") {
+			if(!isOn) {
+				nextState.isOn = true;
+			}
+		}
+		if(action == "SUCK") {
+			for(Coordinate d : dirt) {
+				if(this.currentPos.equals(d)) {
+					nextState.dirt.remove(d);
+				}
+			}
+		}
+		if(action == "GO") {
+			switch(this.ori) {
+				case NORTH:
+					nextState.currentPos.set(this.currentPos.getX(),
+												this.currentPos.getY() + 1);
+					break;
+				case SOUTH:
+					nextState.currentPos.set(this.currentPos.getX(),
+							this.currentPos.getY() - 1);
+					break;
+				case EAST:
+					nextState.currentPos.set(this.currentPos.getX() + 1,
+							this.currentPos.getY());
+					break;
+				case WEST:
+					nextState.currentPos.set(this.currentPos.getX() - 1,
+							this.currentPos.getY());
+					break;
+			}
+		}
+		if(action == "TURN_LEFT") {
+			switch(this.ori) {
+				case NORTH:
+					nextState.setOrientation(Orientation.WEST);
+					break;
+				case WEST:
+					nextState.setOrientation(Orientation.SOUTH);
+					break;
+				case SOUTH: 
+					nextState.setOrientation(Orientation.EAST);
+					break;
+				case EAST:
+					nextState.setOrientation(Orientation.NORTH);
+			}
+		}
+		if(action == "TURN_RIGHT") {
+			switch(this.ori) {
+				case NORTH:
+					nextState.setOrientation(Orientation.EAST);
+					break;
+				case EAST:
+					nextState.setOrientation(Orientation.SOUTH);
+					break;
+				case SOUTH: 
+					nextState.setOrientation(Orientation.WEST);
+					break;
+				case WEST:
+					nextState.setOrientation(Orientation.NORTH);
+			}
+		}
+		return nextState;
 	}
 }

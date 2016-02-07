@@ -6,6 +6,10 @@ public class SearchNode {
 	private String action;
 	private int cost;
 	
+	public SearchNode(State s) {
+		state = s;
+	}
+	
 	public int getCost() {
 		return cost;
 	}
