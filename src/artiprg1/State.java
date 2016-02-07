@@ -14,7 +14,7 @@ public class State {
 	/**
 	 * Lab class instructor hints that we can minimize the state space by storing 
 	 * grid size, obstacles list, and home in the agent class and passing it as 
-	 * a parameter to the search. That we the state class is only tracking things
+	 * a parameter to the search. That way the state class is only tracking things
 	 * that change.
 	 */
 	
@@ -82,8 +82,38 @@ public class State {
 		//legal actions to perform in this state. can be used to cull nonsense actions.
 		if(!isOn) {
 			actions.add("TURN_ON");
+			return actions;
 		}
-
+		for(Coordinate d : dirt) {
+			if(d.equals(currentPos)) actions.add("SUCK");
+			return actions;
+		}
+		/**
+		 * If there's a wall in front of the agent, do not go forward.
+		 */
+		for(Coordinate o : obstacles) {
+			switch(ori) {
+				case NORTH: if(((currentPos.getY() + 1) == o.getY())
+								&& (currentPos.getX() == o.getX())) {
+					break;
+				}
+				case SOUTH: if(((currentPos.getY() - 1) == o.getY())
+						&& (currentPos.getX() == o.getX())) {
+					break;
+				}
+				case EAST: if(((currentPos.getX() + 1) == o.getX())
+						&& (currentPos.getY() == o.getY())) {
+					break;
+				}
+				case WEST: if(((currentPos.getX() - 1) == o.getX())
+						&& (currentPos.getY() == o.getY())) {
+					break;
+				}
+				default:actions.add("GO");
+			}
+		}
+		actions.add("TURN_LEFT");
+		actions.add("TURN_RIGHT");
 		return actions;
 	}
 	
