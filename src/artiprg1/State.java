@@ -61,6 +61,10 @@ public class State {
 		this.home = home;
 	}
 	
+	public Coordinate getHome(){
+		return this.home;
+	}
+	
 	public void setSize(Coordinate size) {
 		this.size = size;
 	}

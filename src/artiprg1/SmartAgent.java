@@ -12,7 +12,8 @@ public class SmartAgent implements Agent {
 	
 	private State iState = new State();
 	private Random random = new Random();
-	private Stack<String> toDo;
+	private Search searchResult;
+	
 	/* Frontier ordering:
 		DFS- New nodes are inserted at back of frontier. Queue.
 		BFS- New nodes are inserted at front of frontier. Stack.
@@ -75,11 +76,16 @@ public class SmartAgent implements Agent {
 			}
 		}
 		iState.printState();
+		searchResult = new BFS(iState);
     }
 
 	@Override
 	public String nextAction(Collection<String> percepts) {
-		return toDo.pop();
+		System.out.print("perceiving:");
+		for(String percept:percepts) {
+			System.out.print("'" + percept + "', ");
+		}
+		System.out.println("");
+		return searchResult.nextMove();
 	}
-
 }

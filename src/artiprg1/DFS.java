@@ -9,6 +9,6 @@ public class DFS {
 	private Queue<SearchNode> frontier;
 	
 	public DFS(State initial) {
-		frontier.add(new SearchNode(initial));
+		frontier.add(new SearchNode(initial, null, null));
 	}
 }
