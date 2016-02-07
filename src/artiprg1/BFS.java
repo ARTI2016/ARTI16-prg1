@@ -8,49 +8,53 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BFS implements Search {
-	private HashSet<State> explored;
-	private Stack<String> successMoves;
-	private SearchNode root;
+	HashSet<State> marked;
+    Stack<String> successMoves;
+    List<SearchNode> frontier = new ArrayList<SearchNode>();
+    SearchNode root;
     
     public BFS(State startingState)
     {
-        explored = new HashSet<State>();
+        marked = new HashSet<State>();
         SearchNode root = new SearchNode(startingState, "TURN_ON", null);
         successMoves = new Stack<String>();
-        SearchNode successNode = bfs(root);
-        
         successMoves.push("TURN_OFF");
-        while(successNode != null)
-            successMoves.push(successNode.getAction());
+        bfs(root);
+        successMoves.push("TURN_ON");
     }
     
-    private SearchNode bfs(SearchNode currentNode)
+    private void bfs(SearchNode currentNode)
     {
         Queue<SearchNode> q = new LinkedList<SearchNode>();
         q.add(currentNode);
-        explored.add(currentNode.getState());
+        marked.add(currentNode.getState());
         while(!q.isEmpty())
         {
             SearchNode topNode = q.poll();
             
-            if( topNode.getState() == root.getState())
-               return topNode;
+            if( topNode.getState().isGoal()){
+            	for(SearchNode i = topNode; i != root; i = i.getParent())
+            		successMoves.push(i.getAction());
+            	
+            	return;
+            }
+               
             List<SearchNode> adjacentSearchNodes = new ArrayList<SearchNode>();
-            for(String move : topNode.getState().legalActions())
+			for(String action : topNode.getState().legalActions())
             {
-                SearchNode newSearchNode = new SearchNode(topNode.getState().expandState(move),move,topNode);
+                SearchNode newSearchNode = new SearchNode(topNode.getState().expandState(action), action,topNode);
                 adjacentSearchNodes.add(newSearchNode);
             }
             for(SearchNode sn : adjacentSearchNodes)
             {
-                if( !explored.contains(sn.getState()) )
+                if( !marked.contains(sn.getState()) )
                 {
-                    explored.add(sn.getState());
+                    marked.add(sn.getState());
                     q.add(sn);
                 }
             }
         }
-        return null;
+        return;
     }
 
     @Override
