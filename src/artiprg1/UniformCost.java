@@ -3,7 +3,6 @@ package artiprg1;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
-import java.util.Set;
 import java.util.Stack;
 
 public class UniformCost implements Search{
@@ -13,10 +12,6 @@ public class UniformCost implements Search{
 	private Comparator<SearchNode> comparator;
 	private Stack<String> successMoves;
 	private SearchNode root;
-	
-	
-	
-	
 	
 	public UniformCost(State startingState)
     {
@@ -62,9 +57,7 @@ public class UniformCost implements Search{
 				
 				if(!marked.contains(newSearchNode.getState()))
 					frontier.add(newSearchNode);
-      
             }
-           
         }
         return;
 	}

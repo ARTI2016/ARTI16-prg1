@@ -11,12 +11,12 @@ public class BFS implements Search {
 	private HashSet<State> marked;
 	private Stack<String> successMoves;
 	private SearchNode root;
-	private Queue<SearchNode> que;
+	private Queue<SearchNode> frontier;
     
     public BFS(State startingState)
     {
         marked = new HashSet<State>();
-        SearchNode root = new SearchNode(startingState, "TURN_ON", null);
+        frontier.add(new SearchNode(startingState, null, null));
         successMoves = new Stack<String>();
         successMoves.push("TURN_OFF");
         bfs(root);
@@ -25,12 +25,12 @@ public class BFS implements Search {
     
     private void bfs(SearchNode currentNode)
     {
-        que = new LinkedList<SearchNode>();
-        que.add(currentNode);
+    	frontier = new LinkedList<SearchNode>();
+    	frontier.add(currentNode);
         marked.add(currentNode.getState());
-        while(!que.isEmpty())
+        while(!frontier.isEmpty())
         {
-            SearchNode topNode = que.poll();
+            SearchNode topNode = frontier.poll();
             
             if( topNode.getState().isGoal()){
             	for(SearchNode i = topNode; i != root; i = i.getParent()){
@@ -50,7 +50,7 @@ public class BFS implements Search {
                 if( !marked.contains(sn.getState()) )
                 {
                     marked.add(sn.getState());
-                    que.add(sn);
+                    frontier.add(sn);
                 }
             }
         }
