@@ -1,20 +1,18 @@
 package artiprg1;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 
 import artiprg1.State.Orientation;
 
 public class SmartAgent implements Agent {
 	private State iState = new State();
 	private Search searchResult;
-	
-	
+
 	/* Frontier ordering:
-		DFS- New nodes are inserted at back of frontier. Queue.
-		BFS- New nodes are inserted at front of frontier. Stack.
-		Uniform- Nodes are sorted in increasing cost. Priority Queue.
+		DFS - New nodes are inserted at back of frontier. Stack.
+		BFS - New nodes are inserted at front of frontier. Queue.
+		UniformCost - Nodes are sorted in increasing cost. Priority Queue based on cost.
+		AStar - Nodes are sorted in increasing cost. Priority Queue based on heuristics.
 	 */
 	
 	@Override
@@ -73,18 +71,14 @@ public class SmartAgent implements Agent {
 				iState.world.setSize(new Coordinate(x_size, y_size));
 			}
 		}
-		searchResult = new UniformCost(iState);
-		/*State b = new State(iState);
-		HashSet<State> testMap = new HashSet<State>();
-		testMap.add(new State(iState));
-		if(b.equals(iState)) {
-			System.out.println("iState equals b!");
-		}
-		if(testMap.contains(iState)) {
-			System.out.println("Set contains iState!");
-		}
-		System.exit(29);*/
-		//((DFS) searchResult).printResults();
+		/* 	
+		 	Switch search function to switch between search Algorithms.
+			BFS - Breadth First Search
+			DFS - Depth First Search
+			UnionCost - Union Cost Search (Cheapest First Search)
+			AStar - A* heuristics search
+		*/
+		searchResult = new DFS(iState);
     }
 
 	@Override

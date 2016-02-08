@@ -16,13 +16,8 @@ public class BFS implements Search {
     	frontier = new LinkedList<SearchNode>();
     	marked = new HashMap<>();
         successMoves = new Stack<String>();
-   
         root = new SearchNode(startingState, null, null);        
         successMoves.push("TURN_OFF");
-        SearchNode root2 = new SearchNode(startingState, null, null);
-        if(root.equals(root2)) {
-        	System.out.println("THEY'RE EQUALS");
-        } else System.out.println("THEY'RE NOT EQUALS");
         bfs();
     }
     
