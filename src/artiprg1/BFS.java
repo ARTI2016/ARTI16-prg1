@@ -19,16 +19,16 @@ public class BFS implements Search {
         marked = new HashSet<State>();
         successMoves = new Stack<String>();
    
-        root = new SearchNode(startingState, null, null);
-        frontier.add(root);
-        marked.add(root.getState());
-        
+        root = new SearchNode(startingState, null, null);        
         successMoves.push("TURN_OFF");
         bfs();
     }
     
     private void bfs()
     {
+        frontier.add(root);
+        marked.add(root.getState());
+        
         while(!frontier.isEmpty())
         {
             SearchNode topNode = frontier.poll();
