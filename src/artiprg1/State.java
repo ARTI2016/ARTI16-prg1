@@ -60,17 +60,17 @@ public class State {
 		for(Coordinate d : dirt) {
 			System.out.print("(" + d.getX() + "," + d.getY() + ")" + ", ");
 		}
-		System.out.println();
-		System.out.println("obstacle list:");
-		for(Coordinate o : obstacles) {
-			System.out.print("(" + o.getX() + "," + o.getY() + ")" + ", ");
-		}
-		System.out.println();
-		System.out.println("Home: " + home.getX() + "," + home.getY());
-		System.out.println("Size: " + size.getX() + "," + size.getY());
-		if(isOn) System.out.println("Agent is on");
-		else System.out.println("Agent is off");
-		System.out.println(ori.toString());
+//		System.out.println();
+//		System.out.println("obstacle list:");
+//		for(Coordinate o : obstacles) {
+//			System.out.print("(" + o.getX() + "," + o.getY() + ")" + ", ");
+//		}
+//		System.out.println();
+//		System.out.println("Home: " + home.getX() + "," + home.getY());
+//		System.out.println("Size: " + size.getX() + "," + size.getY());
+//		if(isOn) System.out.println("Agent is on");
+//		else System.out.println("Agent is off");
+//		System.out.println(ori.toString());
 	}
 	
 	public void setDirt(ArrayList<Coordinate> dlist) {

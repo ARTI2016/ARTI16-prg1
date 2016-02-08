@@ -71,7 +71,7 @@ public class SmartAgent implements Agent {
 				iState.setSize(new Coordinate(x_size, y_size));
 			}
 		}
-		searchResult = new DFS(iState);
+		searchResult = new BFS(iState);
     }
 
 	@Override
