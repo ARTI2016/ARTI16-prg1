@@ -5,7 +5,6 @@ import java.util.Collection;
 import artiprg1.State.Orientation;
 
 public class SmartAgent implements Agent {
-	
 	private State iState = new State();
 	private Search searchResult;
 	
@@ -34,7 +33,7 @@ public class SmartAgent implements Agent {
 				while(Character.isDigit(p.charAt(index))) x_start = x_start * 10 + Character.getNumericValue(p.charAt(index++)); 
 				index++;
 				while(Character.isDigit(p.charAt(index))) y_start = y_start * 10 + Character.getNumericValue(p.charAt(index++));
-				iState.setHome(new Coordinate(x_start, y_start));
+				iState.world.setHome(new Coordinate(x_start, y_start));
 				iState.setCurrentPos(new Coordinate(x_start, y_start));
 			}
 			else if (p.startsWith("(ORIENTATION"))
@@ -60,7 +59,7 @@ public class SmartAgent implements Agent {
 				index++;
 				while(Character.isDigit(p.charAt(index))) pos_y = pos_y * 10 + Character.getNumericValue(p.charAt(index++));
 				Coordinate pos = new Coordinate(pos_x, pos_y);
-				iState.obstacles.add(pos);
+				iState.world.obstacles.add(pos);
 			}
 			else if (p.startsWith("(SIZE"))
 			{
@@ -68,10 +67,10 @@ public class SmartAgent implements Agent {
 				while(Character.isDigit(p.charAt(index))) x_size = x_size * 10 + Character.getNumericValue(p.charAt(index++));
 				index++;
 				while(Character.isDigit(p.charAt(index))) y_size = y_size * 10 + Character.getNumericValue(p.charAt(index++));
-				iState.setSize(new Coordinate(x_size, y_size));
+				iState.world.setSize(new Coordinate(x_size, y_size));
 			}
 		}
-		searchResult = new BFS(iState);
+		searchResult = new DFS(iState);
     }
 
 	@Override
