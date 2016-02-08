@@ -4,6 +4,22 @@ class AStarNode extends SearchNode{
 	private int f;
 	private int g;
 
+	public int getF() {
+		return f;
+	}
+
+	public void setF(int f) {
+		this.f = f;
+	}
+
+	public int getG() {
+		return g;
+	}
+
+	public void setG(int g) {
+		this.g = g;
+	}
+
 	public AStarNode(State state, String action, AStarNode parentNode) {
 		super(state, action, (AStarNode)parentNode);
 		if( parentNode == null){
