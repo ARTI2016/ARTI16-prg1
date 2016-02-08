@@ -20,8 +20,8 @@ class AStarNode extends SearchNode{
 		this.g = g;
 	}
 
-	public AStarNode(State state, String action, AStarNode parentNode) {
-		super(state, action, (AStarNode)parentNode);
+	public AStarNode(State state, String action, AStarNode parentNode, int cost) {
+		super(state, action, (AStarNode)parentNode, cost);
 		if( parentNode == null){
 			g = 0;
 		}else{

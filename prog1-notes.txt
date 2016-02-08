@@ -2,55 +2,212 @@ W*L*4*2^D
 
 DFS results:
 	world 1:
-		Maximum Frontier Size: 61
-		Expansion count: 812
-		Elapsed Time: 0.011
-		Solution Cost: 109
+Maximum frontier size: 110
+Expansion count: 383
+Elapsed time: 0.005
+Solution cost: 109
 	world2:
-		Maximum Frontier Size: 45
-		Expansion count: 645
-		Elapsed Time: 0.008
-		Solution Cost: 87
+Maximum frontier size: 88
+Expansion count: 323
+Elapsed time: 0.006
+Solution cost: 87
 	world3:
-		Maximum Frontier Size: 961
-		Expansion count: 4526228
-		Time elapsed: 13.947
-		Solution Cost: 1349
+Maximum frontier size: 1350
+Expansion count: 6210
+Elapsed time: 0.039
+Solution cost: 1349
 	world4:
-		Maximum Frontier Size: large
-		Expansion count: many
-		Time elapsed: +1 hour
-		Solution Cost: expensive
+Maximum frontier size: 2894
+Expansion count: 16736
+Elapsed time: 0.078
+Solution cost: 2893
 	world5:
-		Maximum Frontier Size: 
-		Expansion count: 
-		Time elapsed: 
-		Solution Cost: 
+Maximum frontier size: 2318
+Expansion count: 16418
+Elapsed time: 0.083
+Solution cost: 2317
 	world6:
-		Maximum Frontier Size: 
-		Expansion count: 
-		Time elapsed: 
-		Solution Cost: 
+Maximum frontier size: 1
+Expansion count: 2073473
+Elapsed time: 3.583
+Solution cost: 0
 	world7:
-		Maximum Frontier Size: 
-		Expansion count: 
-		Time elapsed: 
-		Solution Cost: 
+Maximum frontier size: 1276
+Expansion count: 5982
+Elapsed time: 0.034
+Solution cost: 1275
 	world8:
-		Maximum Frontier Size: 
-		Expansion count: 
-		Time elapsed: 
-		Solution Cost: 
+ Maximum frontier size: 1309
+Expansion count: 6089
+Elapsed time: 0.045
+Solution cost: 1308
 	world9:
-		Maximum Frontier Size: 
-		Expansion count: 
-		Time elapsed: 
-		Solution Cost: 
+Maximum frontier size: 1334
+Expansion count: 6157
+Elapsed time: 0.035
+Solution cost: 1333
 	world10:
-		Maximum Frontier Size: 
-		Expansion count: 
-		Time elapsed: 
-		Solution Cost: 
+Maximum frontier size: 1347
+Expansion count: 6174
+Elapsed time: 0.034
+Solution cost: 1346
+
+BFS performance:
+world 1:
+Maximum frontier size: 42
+Expansion count: 3884
+Elapsed time: 0.023
+Solution cost: 41
+world 2:
+Maximum frontier size: 46
+Expansion count: 3571
+Elapsed time: 0.022
+Solution cost: 45
+world 3:
+Maximum frontier size: 286
+Expansion count: 5569476
+Elapsed time: 21.298
+Solution cost: 285
+world 4:
+Maximum frontier size: 202
+Expansion count: 4168270
+Elapsed time: 12.77
+Solution cost: 201
+world 5:
+Maximum frontier size: 170
+Expansion count: 5565363
+Elapsed time: 14.96
+Solution cost: 169
+world 6:
+Maximum frontier size: 1
+Expansion count: 2073473
+Elapsed time: 4.008
+Solution cost: 0
+world 7:
+Maximum frontier size: 222
+Expansion count: 349022
+Elapsed time: 0.515
+Solution cost: 221
+world 8:
+Maximum frontier size: 259
+Expansion count: 697566
+Elapsed time: 0.9
+Solution cost: 258
+world 9:
+Maximum frontier size: 270
+Expansion count: 1394394
+Elapsed time: 1.971
+Solution cost: 269
+world 10:
+Maximum frontier size: 271
+Expansion count: 2786756
+Elapsed time: 6.587
+Solution cost: 270
+
+UCS results:
+world1:
+Maximum frontier size: 74
+Expansion count: 453
+Elapsed time: 0.006
+Solution cost: 73
+world2:
+Maximum frontier size: 71
+Expansion count: 418
+Elapsed time: 0.006
+Solution cost: 70
+world3:
+Maximum frontier size: 1585
+Expansion count: 22794
+Elapsed time: 0.076
+Solution cost: 1584
+world4:
+Maximum frontier size: 1923
+Expansion count: 23864
+Elapsed time: 0.088
+Solution cost: 1922
+world5:
+Maximum frontier size: 1200
+Expansion count: 20935
+Elapsed time: 0.074
+Solution cost: 1199
+world6:
+Maximum frontier size: 1
+Expansion count: 2073473
+Elapsed time: 3.629
+Solution cost: 0
+world7:
+Maximum frontier size: 1165
+Expansion count: 16464
+Elapsed time: 0.072
+Solution cost: 1164
+world8:
+Maximum frontier size: 1202
+Expansion count: 16603
+Elapsed time: 0.071
+Solution cost: 1201
+world9:
+Maximum frontier size: 1473
+Expansion count: 21581
+Elapsed time: 0.078
+Solution cost: 1472
+world10:
+Maximum frontier size: 1580
+Expansion count: 22738
+Elapsed time: 0.085
+Solution cost: 1579
+
+A* results:
+world1:
+Maximum frontier size: 42
+Expansion count: 2316
+Elapsed time: 0.022
+Solution cost: 41
+world2:
+Maximum frontier size: 46
+Expansion count: 2243
+Elapsed time: 0.02
+Solution cost: 45
+world3:
+Maximum frontier size: 286
+Expansion count: 4719619
+Elapsed time: 14.084
+Solution cost: 285
+world4:
+Maximum frontier size: 202
+Expansion count: 1883454
+Elapsed time: 4.368
+Solution cost: 201
+world5:
+Maximum frontier size: 170
+Expansion count: 3310135
+Elapsed time: 11.066
+Solution cost: 169
+world6:
+Maximum frontier size: 1
+Expansion count: 2073473
+Elapsed time: 6.252
+Solution cost: 0
+world7:
+Maximum frontier size: 222
+Expansion count: 237804
+Elapsed time: 0.446
+Solution cost: 221
+world8:
+Maximum frontier size: 259
+Expansion count: 540578
+Elapsed time: 0.893
+Solution cost: 258
+world9:
+Maximum frontier size: 270
+Expansion count: 1129794
+Elapsed time: 2.101
+Solution cost: 269
+world10:
+Maximum frontier size: 271
+Expansion count: 2256226
+Elapsed time: 4.926
+Solution cost: 270
+
 
 We can construct the search tree implicitly using a node class.
 

@@ -6,12 +6,13 @@ public class SearchNode{
 	private String action;
 	private int cost;
 	
-	public SearchNode(State state, String action, SearchNode parent){
+	public SearchNode(State state, String action, SearchNode parent, int cost){
 		this.state = new State(state);
 		if(action == null) {
 			this.action = "";
 		} else this.action = action;
         this.parent = parent;
+        this.cost = cost;
 	}
 	
 	public int getCost() {
