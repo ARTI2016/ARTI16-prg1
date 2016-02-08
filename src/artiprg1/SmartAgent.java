@@ -73,7 +73,7 @@ public class SmartAgent implements Agent {
 				iState.world.setSize(new Coordinate(x_size, y_size));
 			}
 		}
-		searchResult = new BFS(iState);
+		searchResult = new AStar(iState);
 		/*State b = new State(iState);
 		HashSet<State> testMap = new HashSet<State>();
 		testMap.add(new State(iState));

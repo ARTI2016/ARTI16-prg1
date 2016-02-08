@@ -61,4 +61,13 @@ public class SearchNode{
 		if(parent != null) hash *= parent.hashCode();
 		return hash;
 	}
+
+	public int compareTo(SearchNode node) {
+		if(this.cost < node.cost){
+			return -1;
+		}else if(this.cost > node.cost){
+			return 1;
+		}
+		return 0;
+	}
 }
