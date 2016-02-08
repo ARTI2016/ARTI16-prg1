@@ -26,8 +26,8 @@ public class State {
 	
 	public State(State s) {
 		world = s.world;
-		this.dirt = new ArrayList<Coordinate>();
 		
+		this.dirt = new ArrayList<Coordinate>();
 		for(Coordinate d : s.dirt) {
 			this.dirt.add(new Coordinate(d.getX(), d.getY()));
 		}
@@ -50,8 +50,8 @@ public class State {
 		for(Coordinate d : dirt) {
 			System.out.print("(" + d.getX() + "," + d.getY() + ")" + ", ");
 		}
-		System.out.println();
-		/*System.out.println("obstacle list:");
+		/*System.out.println();
+		System.out.println("obstacle list:");
 		for(Coordinate o : obstacles) {
 			System.out.print("(" + o.getX() + "," + o.getY() + ")" + ", ");
 		}
