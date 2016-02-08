@@ -79,7 +79,7 @@ public class SmartAgent implements Agent {
 			}
 		}
 		iState.printState();
-		searchResult = new BFS(iState);
+		searchResult = new UniformCost(iState);
     }
 
 	@Override

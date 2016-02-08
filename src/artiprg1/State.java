@@ -84,7 +84,7 @@ public class State {
 		return (currentPos.equals(home) && dirt.isEmpty() && !isOn);
 	}
 	
-	public Collection<String> legalActions() {
+	/*public Collection<String> legalActions() {
 		Collection<String> actions = new ArrayList<String>();
 		if(!isOn) {
 			actions.add("TURN_ON");
@@ -97,9 +97,9 @@ public class State {
 		actions.add("TURN_RIGHT");
 		actions.add("GO");
 		return actions;
-	}
+	}*/
 	
-	/*public Collection<String> legalActions() {
+	public Collection<String> legalActions() {
 		Collection<String> actions = new ArrayList<String>();
 		//legal actions to perform in this state. can be used to cull nonsense actions.
 		if(!isOn) {
@@ -142,7 +142,7 @@ public class State {
 		actions.add("TURN_LEFT");
 		actions.add("TURN_RIGHT");
 		return actions;
-	}*/
+	}
 	
 	private State copyState() {
 		State copy = new State();
