@@ -8,7 +8,7 @@ public class State {
 	private Coordinate currentPos;
 	private Coordinate home;
 	private Coordinate size;
-	private boolean isOn;
+	public boolean isOn;
 	public enum Orientation{NORTH, EAST, SOUTH, WEST}
 	private Orientation ori;
 	/**
@@ -26,6 +26,10 @@ public class State {
 		size = null;
 		isOn = false;
 		ori = null;
+	}
+	
+	public Coordinate getPos() {
+		return currentPos;
 	}
 	
 	//Print function to see if we're constructing these right
@@ -285,10 +289,9 @@ public class State {
     public boolean equals(Object obj)
     {
 		State s = (State) obj;
-        if (this.size.equals(s.size) && this.currentPos.equals(s.currentPos)
+        if ((this.currentPos.equals(s.currentPos)
         		&& this.isOn == s.isOn && this.ori == s.ori
-        		&& this.dirt.equals(s.dirt) && this.obstacles.equals(s.obstacles)
-        		&& this.home.equals(s.home))
+        		&& this.dirt.equals(s.dirt)))
             return true;
         return false;
     }

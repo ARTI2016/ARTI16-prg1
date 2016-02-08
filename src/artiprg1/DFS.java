@@ -42,6 +42,7 @@ public class DFS implements Search {
 				for(String s : current.getState().legalActions()) {
 					System.out.println(s);
 				}
+				
 				System.out.println("Expanding with action " + a);
 				//Create next search node
 				SearchNode nextNode = new SearchNode(current.getState().expandState(a), a, current);
@@ -49,6 +50,14 @@ public class DFS implements Search {
 				State s = nextNode.getState();
 				for(SearchNode n = nextNode.getParent(); n != null; n = n.getParent()) {
 					if(n.getState().equals(s)) {
+						System.out.println("Duplicate state detected!");
+						if(s.isGoal()) {
+							System.out.println("Current state:");
+							current.getState().printState();
+							System.out.println("Duplicate state:");
+							n.getState().printState();
+							System.exit(420);
+						}
 						continue expand;
 					}
 				}

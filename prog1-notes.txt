@@ -1,3 +1,5 @@
+W*L*4*2^D
+
 We can construct the search tree implicitly using a node class.
 
 Node{
