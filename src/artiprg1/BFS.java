@@ -8,10 +8,10 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BFS implements Search {
-	HashSet<State> marked;
-    Stack<String> successMoves;
-    List<SearchNode> frontier = new ArrayList<SearchNode>();
-    SearchNode root;
+	private HashSet<State> marked;
+	private Stack<String> successMoves;
+	private SearchNode root;
+	private Queue<SearchNode> que;
     
     public BFS(State startingState)
     {
@@ -25,17 +25,17 @@ public class BFS implements Search {
     
     private void bfs(SearchNode currentNode)
     {
-        Queue<SearchNode> q = new LinkedList<SearchNode>();
-        q.add(currentNode);
+        que = new LinkedList<SearchNode>();
+        que.add(currentNode);
         marked.add(currentNode.getState());
-        while(!q.isEmpty())
+        while(!que.isEmpty())
         {
-            SearchNode topNode = q.poll();
+            SearchNode topNode = que.poll();
             
             if( topNode.getState().isGoal()){
-            	for(SearchNode i = topNode; i != root; i = i.getParent())
-            		successMoves.push(i.getAction());
-            	
+            	for(SearchNode i = topNode; i != root; i = i.getParent()){
+            		successMoves.push(i.getAction());         	
+            	}
             	return;
             }
                
@@ -50,7 +50,7 @@ public class BFS implements Search {
                 if( !marked.contains(sn.getState()) )
                 {
                     marked.add(sn.getState());
-                    q.add(sn);
+                    que.add(sn);
                 }
             }
         }

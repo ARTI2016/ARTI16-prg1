@@ -8,29 +8,65 @@ import java.util.Stack;
 
 public class UniformCost implements Search{
 	
+	private HashSet<State> marked;
 	private PriorityQueue<SearchNode> frontier;
-	private Set<Object> explored;
 	private Comparator<SearchNode> comparator;
 	private Stack<String> successMoves;
 	private SearchNode root;
+	
+	
+	
+	
 	
 	public UniformCost(State startingState)
     {
 		comparator = new CostComparator();
         frontier = new PriorityQueue<SearchNode>(6, comparator);
-        
+   
         root = new SearchNode(startingState, "TURN_ON", null);
         successMoves = new Stack<String>();
-        SearchNode successNode = ucs(root);
-        
+    
         successMoves.push("TURN_OFF");
-        while(successNode != null)
-            successMoves.push(successNode.getAction());
+        ucs(root);
+        successMoves.push("TURN_ON");
     }
 	
-	private SearchNode ucs(SearchNode currentnode){
+	private void ucs(SearchNode currentnode){
+		frontier.add(currentnode);
+        marked.add(currentnode.getState());
+        while(!frontier.isEmpty())
+        {
+        	SearchNode topNode = frontier.poll();
+            
+            if( topNode.getState().isGoal()){
+            	for(SearchNode i = topNode; i != root; i = i.getParent()){
+            		successMoves.push(i.getAction());         	
+            	}
+            	return;
+            }
+            
+            if( !marked.contains(topNode.getState()) )
+                marked.add(topNode.getState());
+           
 			
-		return null;
+            for(String action : topNode.getState().legalActions())
+            {
+             
+				SearchNode newSearchNode = new SearchNode(topNode.getState().expandState(action), action,topNode);
+				if( newSearchNode.getState().isGoal()){
+	            	for(SearchNode i = newSearchNode; i != root; i = i.getParent()){
+	            		successMoves.push(i.getAction());         	
+	            	}
+	            	return;
+	            }
+				
+				if(!marked.contains(newSearchNode.getState()))
+					frontier.add(newSearchNode);
+      
+            }
+           
+        }
+        return;
 	}
 	
 	@Override
