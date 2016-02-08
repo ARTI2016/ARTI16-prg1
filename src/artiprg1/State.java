@@ -61,7 +61,7 @@ public class State {
 			System.out.print("(" + d.getX() + "," + d.getY() + ")" + ", ");
 		}
 		System.out.println();
-		System.out.println("obstacle list:");
+		/*System.out.println("obstacle list:");
 		for(Coordinate o : obstacles) {
 			System.out.print("(" + o.getX() + "," + o.getY() + ")" + ", ");
 		}
@@ -70,7 +70,7 @@ public class State {
 		System.out.println("Size: " + size.getX() + "," + size.getY());
 		if(isOn) System.out.println("Agent is on");
 		else System.out.println("Agent is off");
-		System.out.println(ori.toString());
+		System.out.println(ori.toString());*/
 	}
 	
 	public void setDirt(ArrayList<Coordinate> dlist) {
@@ -130,15 +130,15 @@ public class State {
 		if(!isObsticleInFront() && isWithinWorld(coordinateInFront()))
 			actions.add("GO");
 		
-		if(!isObsticleOnLeft() && isWithinWorld(coordinateOnLeft()))
+		if(isWithinWorld(coordinateOnLeft()))
 			actions.add("TURN_LEFT");
 		
-		if(!isObsticleOnRight() && isWithinWorld(coordinateOnRight()))
+		if(isWithinWorld(coordinateOnRight()))
 			actions.add("TURN_RIGHT");
 		
-		if(isObsticleOnLeft() && isObsticleOnRight() && isObsticleInFront()){
+		/*if(isObsticleOnLeft() && isObsticleOnRight() && isObsticleInFront()){
 			actions.add("TURN_LEFT");
-		}
+		}*/
 		return actions;
 	}
 	

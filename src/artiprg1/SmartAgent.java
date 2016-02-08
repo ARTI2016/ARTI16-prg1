@@ -9,6 +9,7 @@ public class SmartAgent implements Agent {
 	private State iState = new State();
 	private Search searchResult;
 	
+	
 	/* Frontier ordering:
 		DFS- New nodes are inserted at back of frontier. Queue.
 		BFS- New nodes are inserted at front of frontier. Stack.
@@ -72,6 +73,7 @@ public class SmartAgent implements Agent {
 			}
 		}
 		searchResult = new DFS(iState);
+		((DFS) searchResult).printResults();
     }
 
 	@Override
