@@ -1,5 +1,21 @@
 W*L*4*2^D
 
+DFS results:
+	world 1:
+		Maximum Frontier Size: 61
+		Expansion count: 812
+		Elapsed Time: 0.011
+	world2:
+		Maximum Frontier Size: 45
+		Expansion count: 645
+		Elapsed Time: 0.008
+	world3:
+		Maximum Frontier Size: 961
+		Expansion count: 4526228
+		Time elapsed: 41.303
+	world4:
+
+
 We can construct the search tree implicitly using a node class.
 
 Node{

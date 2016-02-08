@@ -33,7 +33,7 @@ public class BFS implements Search {
         {
             SearchNode topNode = frontier.poll();
             topNode.getState().printState();
-            System.out.println("Legal actions:");
+           System.out.println("Legal actions:");
             List<SearchNode> adjacentSearchNodes = new ArrayList<SearchNode>();
 			for(String action : topNode.getState().legalActions())
             {
@@ -52,8 +52,11 @@ public class BFS implements Search {
             }
             for(SearchNode sn : adjacentSearchNodes)
             {
-                if(marked.add(sn.getState()))
+            	if( !marked.contains(sn.getState()) )
+                {
+                    marked.add(new State(sn.getState()));
                     frontier.add(sn);
+                }
                 
             }
         }
