@@ -1,13 +1,13 @@
 package artiprg1;
 
 import java.util.Comparator;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
 public class UniformCost implements Search{
 	
-	private HashSet<State> marked;
+	private HashMap<State, SearchNode> marked;
 	private PriorityQueue<SearchNode> frontier;
 	private Comparator<SearchNode> comparator;
 	private Stack<String> successMoves;
@@ -17,47 +17,37 @@ public class UniformCost implements Search{
     {
 		comparator = new CostComparator();
         frontier = new PriorityQueue<SearchNode>(6, comparator);
-   
+        marked = new HashMap<>();
         root = new SearchNode(startingState, "TURN_ON", null);
         successMoves = new Stack<String>();
-    
         successMoves.push("TURN_OFF");
-        ucs(root);
-        successMoves.push("TURN_ON");
+        ucs();
     }
 	
-	private void ucs(SearchNode currentnode){
-		frontier.add(currentnode);
-        marked.add(currentnode.getState());
+	private void ucs(){
+		frontier.add(root);    
+        
         while(!frontier.isEmpty())
         {
-        	SearchNode topNode = frontier.poll();
-            
-            if( topNode.getState().isGoal()){
-            	for(SearchNode i = topNode; i != root; i = i.getParent()){
-            		successMoves.push(i.getAction());         	
-            	}
-            	return;
-            }
-            
-            if( !marked.contains(topNode.getState()) )
-                marked.add(topNode.getState());
-           
-			
-            for(String action : topNode.getState().legalActions())
-            {
-             
-				SearchNode newSearchNode = new SearchNode(topNode.getState().expandState(action), action,topNode);
-				if( newSearchNode.getState().isGoal()){
-	            	for(SearchNode i = newSearchNode; i != root; i = i.getParent()){
-	            		successMoves.push(i.getAction());         	
-	            	}
-	            	return;
-	            }
-				
-				if(!marked.contains(newSearchNode.getState()))
-					frontier.add(newSearchNode);
-            }
+        	frontier.add(root);
+    		while(!frontier.isEmpty()){
+    			
+    			SearchNode topNode = frontier.poll();
+    			State currentState = topNode.state;
+    			if(currentState.isGoal()){
+    				for(SearchNode i = topNode; i.getParent() != null; i = i.getParent()){
+    					successMoves.push(i.getAction());
+    				}
+    				return;
+    			}
+    			if(!marked.containsKey(currentState)) {
+    				marked.put(currentState, topNode);
+    				for(String action : topNode.state.legalActions()) {
+    					SearchNode newNode = new SearchNode(topNode.state.expandState(action), action, topNode);
+    						frontier.add(newNode);
+    				}
+    			}
+    		}
         }
         return;
 	}
