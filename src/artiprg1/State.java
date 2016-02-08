@@ -3,11 +3,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class State {
+	public World world;
 	public ArrayList<Coordinate> dirt;
-	public ArrayList<Coordinate> obstacles;
 	private Coordinate currentPos;
-	private Coordinate home;
-	private Coordinate size;
 	public boolean isOn;
 	public enum Orientation{NORTH, EAST, SOUTH, WEST}
 	private Orientation ori;
@@ -19,32 +17,24 @@ public class State {
 	 */
 	
 	public State() {
+		world = new World();
 		this.dirt = new ArrayList<Coordinate>();
-		this.obstacles = new ArrayList<Coordinate>();
 		this.currentPos = new Coordinate();
-		this.home = new Coordinate();
-		this.size = new Coordinate();
 		this.isOn = false;
 		this.ori = null;
 	}
 	
 	public State(State s) {
+		world = s.world;
 		this.dirt = new ArrayList<Coordinate>();
+		
 		for(Coordinate d : s.dirt) {
 			this.dirt.add(new Coordinate(d.getX(), d.getY()));
 		}
-		this.obstacles = new ArrayList<Coordinate>();
-		for(Coordinate o : s.obstacles) {
-			this.obstacles.add(new Coordinate(o.getX(), o.getY()));
-		}
-		
+
 		this.currentPos = new Coordinate();
-		this.home = new Coordinate();
-		this.size = new Coordinate();
-		
 		this.currentPos.set(s.currentPos.getX(), s.currentPos.getY());
-		this.home.set(s.home.getX(), s.home.getY());
-		this.size.set(s.size.getX(), s.size.getY());
+
 		this.isOn = s.isOn;
 		this.ori = s.ori;
 	}
@@ -77,25 +67,11 @@ public class State {
 		this.dirt = dlist;
 	}
 	
-	public void setObstacles(ArrayList<Coordinate> olist) {
-		this.obstacles = olist;
-	}
 	
 	public void setCurrentPos(Coordinate cpos) {
 		this.currentPos = cpos;
 	}
 	
-	public void setHome(Coordinate home) {
-		this.home = home;
-	}
-	
-	public Coordinate getHome(){
-		return this.home;
-	}
-	
-	public void setSize(Coordinate size) {
-		this.size = size;
-	}
 	
 	public void setOn(boolean isOn) {
 		this.isOn = isOn;
@@ -106,7 +82,7 @@ public class State {
 	}
 	
 	public boolean isGoal() {
-		return (currentPos.equals(home) && dirt.size() == 0);
+		return (currentPos.equals(world.getHome()) && dirt.size() == 0);
 	}
 	
 	public Collection<String> legalActions() {
@@ -115,7 +91,7 @@ public class State {
 			actions.add("TURN_ON");
 			return actions;
 		}
-		if(this.isOn && this.currentPos.equals(home) && this.dirt.size() == 0) {
+		if(this.isOn && this.currentPos.equals(world.getHome()) && this.dirt.size() == 0) {
 			System.out.println("PLEAS TURN OFF!");
 			actions.add("TURN_OFF");
 			return actions;
@@ -145,25 +121,25 @@ public class State {
 	private boolean isObsticleInFront(){
 		switch(ori) {
 		case NORTH:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()+1)
 					return true;
 			}
 			break;
 		case SOUTH:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()-1)
 					return true;
 			}
 			break;
 		case EAST:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX()+1 && o.getY() == currentPos.getY())
 					return true;
 			}
 			break;
 		case WEST:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX()-1 && o.getY() == currentPos.getY())
 					return true;
 			}
@@ -196,25 +172,25 @@ public class State {
 	private boolean isObsticleOnRight(){
 		switch(ori) {
 		case NORTH:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX()+1 && o.getY() == currentPos.getY())
 					return true;
 			}
 			break;
 		case SOUTH:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX()-1 && o.getY() == currentPos.getY())
 					return true;
 			}
 			break;
 		case EAST:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()-1)
 					return true;
 			}
 			break;
 		case WEST:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()+1)
 					return true;
 			}
@@ -246,25 +222,25 @@ public class State {
 	private boolean isObsticleOnLeft(){
 		switch(ori) {
 		case NORTH:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX()-1 && o.getY() == currentPos.getY())
 					return true;
 			}
 			break;
 		case SOUTH:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX()+1 && o.getY() == currentPos.getY())
 					return true;
 			}
 			break;
 		case EAST:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()+1)
 					return true;
 			}
 			break;
 		case WEST:
-			for(Coordinate o : obstacles){
+			for(Coordinate o : world.getObstacles()){
 				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()-1)
 					return true;
 			}
@@ -295,10 +271,10 @@ public class State {
 	}
 	
 	private boolean isWithinWorld(Coordinate c){
-		if(c.getX() <= 0 || c.getX() > size.getX())
+		if(c.getX() <= 0 || c.getX() > world.getSize().getX())
 			return false;
 		
-		if(c.getY() <= 0 || c.getY() > size.getY())
+		if(c.getY() <= 0 || c.getY() > world.getSize().getY())
 			return false;
 		
 		return true;

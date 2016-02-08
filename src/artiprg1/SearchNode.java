@@ -7,7 +7,7 @@ public class SearchNode{
 	private int cost;
 	
 	public SearchNode(State state, String action, SearchNode parent){
-		this.state = state;
+		this.state = new State(state);
         this.action = action;
         this.parent = parent;
 	}
