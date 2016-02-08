@@ -33,27 +33,28 @@ public class BFS implements Search {
         {
             SearchNode topNode = frontier.poll();
             topNode.getState().printState();
-            
-            if( topNode.getState().isGoal()){
-            	for(SearchNode i = topNode; i != root; i = i.getParent())
-            		successMoves.push(i.getAction());         	
-       
-            	return;
-            }
-               
+            System.out.println("Legal actions:");
             List<SearchNode> adjacentSearchNodes = new ArrayList<SearchNode>();
 			for(String action : topNode.getState().legalActions())
             {
+				System.out.println(action);
                 SearchNode newSearchNode = new SearchNode(topNode.getState().expandState(action), action,topNode);
+                if( action == "TURN_OFF"){
+             
+                	for(SearchNode i = newSearchNode; i != root; i = i.getParent()){
+                		i.getState().printState();
+                		System.out.println("STACK PUSH: " + i.getAction());
+                		successMoves.push(i.getAction());         	
+                	}
+                	return;
+                }
                 adjacentSearchNodes.add(newSearchNode);
             }
             for(SearchNode sn : adjacentSearchNodes)
             {
-                if( !marked.contains(sn.getState()) )
-                {
-                    marked.add(sn.getState());
+                if(marked.add(sn.getState()))
                     frontier.add(sn);
-                }
+                
             }
         }
         return;

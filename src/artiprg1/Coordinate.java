@@ -42,7 +42,7 @@ public class Coordinate {
     public boolean equals(Object obj)
     {
 		Coordinate c = (Coordinate) obj;
-        if (this.x == c.x && this.y == c.y)
+        if (this.x == c.getX() && this.y == c.getY())
             return true;
 
         return false;

@@ -1,19 +1,12 @@
 package artiprg1;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.Stack;
 
 import artiprg1.State.Orientation;
 
 public class SmartAgent implements Agent {
 	
 	private State iState = new State();
-	private Random random = new Random();
 	private Search searchResult;
 	
 	/* Frontier ordering:
@@ -78,8 +71,7 @@ public class SmartAgent implements Agent {
 				iState.setSize(new Coordinate(x_size, y_size));
 			}
 		}
-		iState.printState();
-		searchResult = new DFS(iState);
+		searchResult = new BFS(iState);
     }
 
 	@Override

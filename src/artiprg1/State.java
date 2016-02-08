@@ -19,13 +19,34 @@ public class State {
 	 */
 	
 	public State() {
-		dirt = new ArrayList<Coordinate>();
-		obstacles = new ArrayList<Coordinate>();
-		currentPos = null;
-		home = null;
-		size = null;
-		isOn = false;
-		ori = null;
+		this.dirt = new ArrayList<Coordinate>();
+		this.obstacles = new ArrayList<Coordinate>();
+		this.currentPos = new Coordinate();
+		this.home = new Coordinate();
+		this.size = new Coordinate();
+		this.isOn = false;
+		this.ori = null;
+	}
+	
+	public State(State s) {
+		this.dirt = new ArrayList<Coordinate>();
+		for(Coordinate d : s.dirt) {
+			this.dirt.add(new Coordinate(d.getX(), d.getY()));
+		}
+		this.obstacles = new ArrayList<Coordinate>();
+		for(Coordinate o : s.obstacles) {
+			this.obstacles.add(new Coordinate(o.getX(), o.getY()));
+		}
+		
+		this.currentPos = new Coordinate();
+		this.home = new Coordinate();
+		this.size = new Coordinate();
+		
+		this.currentPos.set(s.currentPos.getX(), s.currentPos.getY());
+		this.home.set(s.home.getX(), s.home.getY());
+		this.size.set(s.size.getX(), s.size.getY());
+		this.isOn = s.isOn;
+		this.ori = s.ori;
 	}
 	
 	public Coordinate getPos() {
@@ -40,16 +61,16 @@ public class State {
 			System.out.print("(" + d.getX() + "," + d.getY() + ")" + ", ");
 		}
 		System.out.println();
-		System.out.println("obstacle list:");
-		for(Coordinate o : obstacles) {
-			System.out.print("(" + o.getX() + "," + o.getY() + ")" + ", ");
-		}
-		System.out.println();
-		System.out.println("Home: " + home.getX() + "," + home.getY());
-		System.out.println("Size: " + size.getX() + "," + size.getY());
-		if(isOn) System.out.println("Agent is on");
-		else System.out.println("Agent is off");
-		System.out.println(ori.toString());
+//		System.out.println("obstacle list:");
+//		for(Coordinate o : obstacles) {
+//			System.out.print("(" + o.getX() + "," + o.getY() + ")" + ", ");
+//		}
+//		System.out.println();
+//		System.out.println("Home: " + home.getX() + "," + home.getY());
+//		System.out.println("Size: " + size.getX() + "," + size.getY());
+//		if(isOn) System.out.println("Agent is on");
+//		else System.out.println("Agent is off");
+//		System.out.println(ori.toString());
 	}
 	
 	public void setDirt(ArrayList<Coordinate> dlist) {
@@ -85,16 +106,17 @@ public class State {
 	}
 	
 	public boolean isGoal() {
-		return (currentPos.equals(home) && dirt.isEmpty() && !isOn);
+		return (currentPos.equals(home) && dirt.size() == 0);
 	}
 	
 	public Collection<String> legalActions() {
 		Collection<String> actions = new ArrayList<String>();
-		if(!isOn) {
+		if(!this.isOn) {
 			actions.add("TURN_ON");
 			return actions;
 		}
-		if(isOn && currentPos.equals(home) && dirt.isEmpty()) {
+		if(this.isOn && this.currentPos.equals(home) && this.dirt.size() == 0) {
+			System.out.println("PLEAS TURN OFF!");
 			actions.add("TURN_OFF");
 			return actions;
 		}
@@ -108,8 +130,15 @@ public class State {
 		if(!isObsticleInFront() && isWithinWorld(coordinateInFront()))
 			actions.add("GO");
 		
-		actions.add("TURN_LEFT");
-		actions.add("TURN_RIGHT");
+		if(!isObsticleOnLeft() && isWithinWorld(coordinateOnLeft()))
+			actions.add("TURN_LEFT");
+		
+		if(!isObsticleOnRight() && isWithinWorld(coordinateOnRight()))
+			actions.add("TURN_RIGHT");
+		
+		if(isObsticleOnLeft() && isObsticleOnRight() && isObsticleInFront()){
+			actions.add("TURN_LEFT");
+		}
 		return actions;
 	}
 	
@@ -164,6 +193,107 @@ public class State {
 		}
 	}
 	
+	private boolean isObsticleOnRight(){
+		switch(ori) {
+		case NORTH:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX()+1 && o.getY() == currentPos.getY())
+					return true;
+			}
+			break;
+		case SOUTH:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX()-1 && o.getY() == currentPos.getY())
+					return true;
+			}
+			break;
+		case EAST:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()-1)
+					return true;
+			}
+			break;
+		case WEST:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()+1)
+					return true;
+			}
+			break;
+		}
+		return false;
+	}
+	
+	private Coordinate coordinateOnRight(){
+		Coordinate c = new Coordinate();
+		
+		if(ori == Orientation.NORTH){
+			c.set(currentPos.getX()+1, currentPos.getY());
+			return c;
+		}
+		else if(ori == Orientation.SOUTH){
+			c.set(currentPos.getX()-1, currentPos.getY());
+			return c;
+		}
+		else if(ori == Orientation.EAST){
+			c.set(currentPos.getX(), currentPos.getY()-1);
+			return c;
+		}
+		else{
+			c.set(currentPos.getX(), currentPos.getY()+1);
+			return c;
+		}
+	}
+	private boolean isObsticleOnLeft(){
+		switch(ori) {
+		case NORTH:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX()-1 && o.getY() == currentPos.getY())
+					return true;
+			}
+			break;
+		case SOUTH:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX()+1 && o.getY() == currentPos.getY())
+					return true;
+			}
+			break;
+		case EAST:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()+1)
+					return true;
+			}
+			break;
+		case WEST:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()-1)
+					return true;
+			}
+			break;
+		}
+		return false;
+	}
+	
+	private Coordinate coordinateOnLeft(){
+		Coordinate c = new Coordinate();
+		
+		if(ori == Orientation.NORTH){
+			c.set(currentPos.getX()-1, currentPos.getY());
+			return c;
+		}
+		else if(ori == Orientation.SOUTH){
+			c.set(currentPos.getX()+1, currentPos.getY());
+			return c;
+		}
+		else if(ori == Orientation.EAST){
+			c.set(currentPos.getX(), currentPos.getY()+1);
+			return c;
+		}
+		else{
+			c.set(currentPos.getX(), currentPos.getY()-1);
+			return c;
+		}
+	}
+	
 	private boolean isWithinWorld(Coordinate c){
 		if(c.getX() <= 0 || c.getX() > size.getX())
 			return false;
@@ -174,39 +304,9 @@ public class State {
 		return true;
 	}
 	
-	private State copyState() {
-		State copy = new State();
-		copy.setCurrentPos(new Coordinate(this.currentPos.getX(), this.currentPos.getY()));
-		copy.setSize(new Coordinate(this.size.getX(), this.size.getY()));
-		copy.setHome(new Coordinate(this.home.getX(), this.home.getY()));
-		if(this.isOn) {
-			copy.setOn(true);
-		}
-		for(Coordinate o : this.obstacles) {
-			copy.obstacles.add(new Coordinate(o.getX(), o.getY()));
-		}
-		for(Coordinate d : this.dirt) {
-			copy.dirt.add(new Coordinate(d.getX(), d.getY()));
-		}
-		switch(this.ori) {
-			case NORTH: 
-				copy.setOrientation(Orientation.NORTH);
-				break;
-			case SOUTH: 
-				copy.setOrientation(Orientation.SOUTH);
-				break;
-			case EAST: 
-				copy.setOrientation(Orientation.EAST);
-				break;
-			case WEST:
-				copy.setOrientation(Orientation.WEST);
-				break;
-		}
-		return copy;
-	}
 	
 	public State expandState(String action) {
-		State nextState = copyState();
+		State nextState = new State(this);
 		if(action == "TURN_ON") {
 			if(!isOn) {
 				nextState.isOn = true;
@@ -224,7 +324,7 @@ public class State {
 			switch(this.ori) {
 				case NORTH:
 					nextState.currentPos.set(this.currentPos.getX(),
-												this.currentPos.getY() + 1);
+							this.currentPos.getY() + 1);
 					break;
 				case SOUTH:
 					nextState.currentPos.set(this.currentPos.getX(),
@@ -243,43 +343,28 @@ public class State {
 		if(action == "TURN_LEFT") {
 			if(ori == Orientation.NORTH) {
 				nextState.setOrientation(Orientation.WEST);
-				System.out.println("Agent turned left! Should now be facing WEST");
-				System.out.println("Agent is now facing " + nextState.ori.toString());
 			} else if (ori == Orientation.WEST) {
 				nextState.setOrientation(Orientation.SOUTH);
-				System.out.println("Agent turned left! Should now be facing SOUTH");
-				System.out.println("Agent is now facing " + nextState.ori.toString());
 			} else if (ori == Orientation.SOUTH) {
 				nextState.setOrientation(Orientation.EAST);
-				System.out.println("Agent turned left! Should now be facing EAST");
-				System.out.println("Agent is now facing " + nextState.ori.toString());
 			} else if (ori == Orientation.EAST) {
 				nextState.setOrientation(Orientation.NORTH);
-				System.out.println("Agent turned left! Should now be facing NORTH");
-				System.out.println("Agent is now facing " + nextState.ori.toString());
 			}
 		}
 		if(action == "TURN_RIGHT") {
 			switch(this.ori) {
 				case NORTH:
 					nextState.setOrientation(Orientation.EAST);
-					System.out.println("Agent turned right! Should now be facing EAST");
-					System.out.println("Agent is now facing " + nextState.ori.toString());
 					break;
 				case EAST:
 					nextState.setOrientation(Orientation.SOUTH);
-					System.out.println("Agent turned right! Should now be facing SOUTH");
-					System.out.println("Agent is now facing " + nextState.ori.toString());
 					break;
 				case SOUTH: 
 					nextState.setOrientation(Orientation.WEST);
-					System.out.println("Agent turned right! Should now be facing WEST");
-					System.out.println("Agent is now facing " + nextState.ori.toString());
 					break;
 				case WEST:
 					nextState.setOrientation(Orientation.NORTH);
-					System.out.println("Agent turned right! Should now be facing NORTH");
-					System.out.println("Agent is now facing " + nextState.ori.toString());
+					break;
 			}
 		}
 		return nextState;
