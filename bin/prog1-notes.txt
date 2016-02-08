@@ -1,0 +1,46 @@
+We can construct the search tree implicitly using a node class.
+
+Node{
+State current
+Node parent
+String action taken to enter this state
+Int cost of entering this state}
+--
+How to do the search:
+
+create start state
+frontier = {start}
+while(true):
+	if frontier is empty, return "fail"
+current = frontier.pop()
+if current.isGoal() return "success"
+for each legal action in current state:
+	frontier.add(new Node with current state expanded);
+
+This finds a goal node, and the path taken to that goal node is the solution.
+--
+example admissible heuristic: (# of Dirts - 1)*Min distance between dirts +
+				Manhattan distance from Home to furthest dirt +
+				Manhattan distance from agent to furthest dirt
+
+Estimated size of state space: W*L*D*4
+
+Estimated performance of:
+
+DFS: Not great. It is incomplete without a check for duplicate visited states,
+and not optimal. Its time complexity of O(b^m) is massively worse than BFS in 
+the worst case, but its space complexity of O(bm) is significantly better than 
+that of BFS.
+
+BFS: Some good, some bad. It's complete, but not optimal. Its time complexity of
+O(b^d) is better than DFS, and its space complexity of O(b^d) is significantly 
+worse than DFS.
+
+Uniform Search: 
+Both complete and optimal. Its time and space complexity are O(b^(1+C/e)).
+--
+Frontier ordering:
+
+DFS- New nodes are inserted at back of frontier
+BFS- New nodes are inserted at front of frontier
+Uniform- Nodes are sorted in increasing cost
