@@ -79,7 +79,7 @@ public class SmartAgent implements Agent {
 			}
 		}
 		iState.printState();
-		searchResult = new DFS(iState);
+		searchResult = new BFS(iState);
     }
 
 	@Override

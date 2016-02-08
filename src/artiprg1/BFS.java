@@ -15,22 +15,24 @@ public class BFS implements Search {
     
     public BFS(State startingState)
     {
+    	frontier = new LinkedList<SearchNode>();
         marked = new HashSet<State>();
-        frontier.add(new SearchNode(startingState, null, null));
         successMoves = new Stack<String>();
+   
+        root = new SearchNode(startingState, null, null);
+        frontier.add(root);
+        marked.add(root.getState());
+        
         successMoves.push("TURN_OFF");
-        bfs(root);
-        successMoves.push("TURN_ON");
+        bfs();
     }
     
-    private void bfs(SearchNode currentNode)
+    private void bfs()
     {
-    	frontier = new LinkedList<SearchNode>();
-    	frontier.add(currentNode);
-        marked.add(currentNode.getState());
         while(!frontier.isEmpty())
         {
             SearchNode topNode = frontier.poll();
+            topNode.getState().printState();
             
             if( topNode.getState().isGoal()){
             	for(SearchNode i = topNode; i != root; i = i.getParent()){
@@ -42,6 +44,7 @@ public class BFS implements Search {
             List<SearchNode> adjacentSearchNodes = new ArrayList<SearchNode>();
 			for(String action : topNode.getState().legalActions())
             {
+				System.out.println("Legal action:" + action);
                 SearchNode newSearchNode = new SearchNode(topNode.getState().expandState(action), action,topNode);
                 adjacentSearchNodes.add(newSearchNode);
             }
@@ -49,6 +52,7 @@ public class BFS implements Search {
             {
                 if( !marked.contains(sn.getState()) )
                 {
+                	System.out.println("Marked and added to frontair: " + sn.getAction());
                     marked.add(sn.getState());
                     frontier.add(sn);
                 }
