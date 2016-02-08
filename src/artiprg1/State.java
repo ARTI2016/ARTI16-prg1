@@ -84,7 +84,7 @@ public class State {
 		return (currentPos.equals(home) && dirt.isEmpty() && !isOn);
 	}
 	
-	/*public Collection<String> legalActions() {
+	public Collection<String> legalActions() {
 		Collection<String> actions = new ArrayList<String>();
 		if(!isOn) {
 			actions.add("TURN_ON");
@@ -107,7 +107,7 @@ public class State {
 		actions.add("TURN_LEFT");
 		actions.add("TURN_RIGHT");
 		return actions;
-	}*/
+	}
 	
 	private boolean isObsticleInFront(){
 		switch(ori) {
@@ -168,51 +168,6 @@ public class State {
 			return false;
 		
 		return true;
-	}
-	
-	/*public Collection<String> legalActions() {
-		Collection<String> actions = new ArrayList<String>();
-		//legal actions to perform in this state. can be used to cull nonsense actions.
-		if(!isOn) {
-			actions.add("TURN_ON");
-			return actions;
-		}
-		if(isOn && currentPos.equals(home) && dirt.isEmpty()) {
-			actions.add("TURN_OFF");
-			return actions;
-		}
-		for(Coordinate d : dirt) {
-			if(d.equals(currentPos)) actions.add("SUCK");
-			return actions;
-		}
-		//If square in front of agent is empty, GO is legal move.
-		Coordinate nextSquare = new Coordinate();
-		switch(ori) {
-		case NORTH:
-			nextSquare.set(this.currentPos.getX(), this.currentPos.getY() + 1);
-			break;
-		case SOUTH:
-			nextSquare.set(this.currentPos.getX(), this.currentPos.getY() - 1);
-			break;
-		case EAST:
-			nextSquare.set(this.currentPos.getX() + 1, this.currentPos.getY());
-			break;
-		case WEST:
-			nextSquare.set(this.currentPos.getX() - 1, this.currentPos.getY());
-			break;
-		}
-		boolean isBlocked = false;
-		for(Coordinate o : obstacles) {
-			if(nextSquare.equals(o)) {
-				isBlocked = true;
-			}
-		}
-		if(!isBlocked) {
-			actions.add("GO");
-		}
-		actions.add("TURN_LEFT");
-		actions.add("TURN_RIGHT");
-		return actions;
 	}
 	
 	private State copyState() {
