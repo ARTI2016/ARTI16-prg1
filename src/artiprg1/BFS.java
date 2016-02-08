@@ -41,7 +41,7 @@ public class BFS implements Search {
                 SearchNode newSearchNode = new SearchNode(topNode.getState().expandState(action), action,topNode);
                 if( action == "TURN_OFF"){
              
-                	for(SearchNode i = newSearchNode; i != root; i = i.getParent()){
+                	for(SearchNode i = newSearchNode; i.getParent() != root; i = i.getParent()){
                 		i.getState().printState();
                 		System.out.println("STACK PUSH: " + i.getAction());
                 		successMoves.push(i.getAction());         	

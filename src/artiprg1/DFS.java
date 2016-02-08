@@ -31,9 +31,14 @@ public class DFS implements Search {
 			current.getState().printState();
 			if(current.getState().isGoal()) {
 				//Trace back up and construct solution
-				for(SearchNode n = current; n != null; n = n.getParent()) {
+				solution.add("TURN_OFF");
+				for(SearchNode n = current; n.getParent() != null; n = n.getParent()) {
 					System.out.println("Adding action to solution list");
 					solution.add(n.getAction());
+				}
+				System.out.println("Solution list:");
+				for(String s : solution) {
+					System.out.println(s);
 				}
 				return true;
 			}
