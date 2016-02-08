@@ -90,13 +90,84 @@ public class State {
 			actions.add("TURN_ON");
 			return actions;
 		}
-		//Coordinate nextSquare = new Coordinate();
+		if(isOn && currentPos.equals(home) && dirt.isEmpty()) {
+			actions.add("TURN_OFF");
+			return actions;
+		}
+		for(Coordinate d : dirt) {
+			if(d.equals(currentPos)){
+				actions.add("SUCK");
+				return actions;
+			}
+		}
 		
-		actions.add("SUCK");
+		if(!isObsticleInFront() && isWithinWorld(coordinateInFront()))
+			actions.add("GO");
+		
 		actions.add("TURN_LEFT");
 		actions.add("TURN_RIGHT");
-		actions.add("GO");
 		return actions;
+	}
+	
+	private boolean isObsticleInFront(){
+		switch(ori) {
+		case NORTH:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()+1)
+					return true;
+			}
+			break;
+		case SOUTH:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX() && o.getY() == currentPos.getY()-1)
+					return true;
+			}
+			break;
+		case EAST:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX()+1 && o.getY() == currentPos.getY())
+					return true;
+			}
+			break;
+		case WEST:
+			for(Coordinate o : obstacles){
+				if(o.getX() == currentPos.getX()-1 && o.getY() == currentPos.getY())
+					return true;
+			}
+			break;
+		}
+		return false;
+	}
+	
+	private Coordinate coordinateInFront(){
+		Coordinate c = new Coordinate();
+		
+		if(ori == Orientation.NORTH){
+			c.set(currentPos.getX(), currentPos.getY()+1);
+			return c;
+		}
+		else if(ori == Orientation.SOUTH){
+			c.set(currentPos.getX(), currentPos.getY()-1);
+			return c;
+		}
+		else if(ori == Orientation.EAST){
+			c.set(currentPos.getX()+1, currentPos.getY());
+			return c;
+		}
+		else{
+			c.set(currentPos.getX()-1, currentPos.getY());
+			return c;
+		}
+	}
+	
+	private boolean isWithinWorld(Coordinate c){
+		if(c.getX() <= 0 || c.getX() > size.getX())
+			return false;
+		
+		if(c.getY() <= 0 || c.getY() > size.getY())
+			return false;
+		
+		return true;
 	}
 	
 	/*public Collection<String> legalActions() {
