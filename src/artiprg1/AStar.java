@@ -30,7 +30,6 @@ public class AStar implements Search {
 			State currentState = topNode.state;
 			if(currentState.isGoal()){
 				for(SearchNode i = topNode; i.getParent() != null; i = i.getParent()){
-					System.out.println("Adding action to solution list");
 					successMoves.push(i.getAction());
 				}
 				return;
