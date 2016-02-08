@@ -30,6 +30,7 @@ public class State {
 	
 	//Print function to see if we're constructing these right
 	public void printState() {
+		System.out.println("Agent location: " + currentPos.getX() + "," + currentPos.getY());
 		System.out.println("dirt list:");
 		for(Coordinate d : dirt) {
 			System.out.print("(" + d.getX() + "," + d.getY() + ")" + ", ");
@@ -85,6 +86,21 @@ public class State {
 	
 	public Collection<String> legalActions() {
 		Collection<String> actions = new ArrayList<String>();
+		if(!isOn) {
+			actions.add("TURN_ON");
+			return actions;
+		}
+		//Coordinate nextSquare = new Coordinate();
+		
+		actions.add("SUCK");
+		actions.add("TURN_LEFT");
+		actions.add("TURN_RIGHT");
+		actions.add("GO");
+		return actions;
+	}
+	
+	/*public Collection<String> legalActions() {
+		Collection<String> actions = new ArrayList<String>();
 		//legal actions to perform in this state. can be used to cull nonsense actions.
 		if(!isOn) {
 			actions.add("TURN_ON");
@@ -126,7 +142,7 @@ public class State {
 		actions.add("TURN_LEFT");
 		actions.add("TURN_RIGHT");
 		return actions;
-	}
+	}*/
 	
 	private State copyState() {
 		State copy = new State();
@@ -170,6 +186,7 @@ public class State {
 			for(Coordinate d : dirt) {
 				if(this.currentPos.equals(d)) {
 					nextState.dirt.remove(d);
+					break;
 				}
 			}
 		}
@@ -194,33 +211,45 @@ public class State {
 			}
 		}
 		if(action == "TURN_LEFT") {
-			switch(this.ori) {
-				case NORTH:
-					nextState.setOrientation(Orientation.WEST);
-					break;
-				case WEST:
-					nextState.setOrientation(Orientation.SOUTH);
-					break;
-				case SOUTH: 
-					nextState.setOrientation(Orientation.EAST);
-					break;
-				case EAST:
-					nextState.setOrientation(Orientation.NORTH);
+			if(ori == Orientation.NORTH) {
+				nextState.setOrientation(Orientation.WEST);
+				System.out.println("Agent turned left! Should now be facing WEST");
+				System.out.println("Agent is now facing " + nextState.ori.toString());
+			} else if (ori == Orientation.WEST) {
+				nextState.setOrientation(Orientation.SOUTH);
+				System.out.println("Agent turned left! Should now be facing SOUTH");
+				System.out.println("Agent is now facing " + nextState.ori.toString());
+			} else if (ori == Orientation.SOUTH) {
+				nextState.setOrientation(Orientation.EAST);
+				System.out.println("Agent turned left! Should now be facing EAST");
+				System.out.println("Agent is now facing " + nextState.ori.toString());
+			} else if (ori == Orientation.EAST) {
+				nextState.setOrientation(Orientation.NORTH);
+				System.out.println("Agent turned left! Should now be facing NORTH");
+				System.out.println("Agent is now facing " + nextState.ori.toString());
 			}
 		}
 		if(action == "TURN_RIGHT") {
 			switch(this.ori) {
 				case NORTH:
 					nextState.setOrientation(Orientation.EAST);
+					System.out.println("Agent turned right! Should now be facing EAST");
+					System.out.println("Agent is now facing " + nextState.ori.toString());
 					break;
 				case EAST:
 					nextState.setOrientation(Orientation.SOUTH);
+					System.out.println("Agent turned right! Should now be facing SOUTH");
+					System.out.println("Agent is now facing " + nextState.ori.toString());
 					break;
 				case SOUTH: 
 					nextState.setOrientation(Orientation.WEST);
+					System.out.println("Agent turned right! Should now be facing WEST");
+					System.out.println("Agent is now facing " + nextState.ori.toString());
 					break;
 				case WEST:
 					nextState.setOrientation(Orientation.NORTH);
+					System.out.println("Agent turned right! Should now be facing NORTH");
+					System.out.println("Agent is now facing " + nextState.ori.toString());
 			}
 		}
 		return nextState;

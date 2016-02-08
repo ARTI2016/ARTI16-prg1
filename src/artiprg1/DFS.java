@@ -20,11 +20,13 @@ public class DFS implements Search {
 	
 	public boolean search() {
 		while(true) {
+			System.out.println("Start of loop! Frontier contains " + frontier.size() + " nodes");
 			if(frontier.isEmpty()) {
 				System.out.println("Frontier is empty!");
 				return false;
 			}
 			current = frontier.pop();
+			System.out.println("Pop! Frontier contains " + frontier.size() + " nodes");
 			System.out.println("Current state:");
 			current.getState().printState();
 			if(current.getState().isGoal()) {
@@ -52,6 +54,7 @@ public class DFS implements Search {
 				}
 				frontier.push(nextNode);
 				System.out.println("Pushed node to frontier!");
+				System.out.println("Frontier contains " + frontier.size() + " nodes");
 			}
 		}
 	}
