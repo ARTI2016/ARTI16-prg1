@@ -5,16 +5,52 @@ DFS results:
 		Maximum Frontier Size: 61
 		Expansion count: 812
 		Elapsed Time: 0.011
+		Solution Cost: 109
 	world2:
 		Maximum Frontier Size: 45
 		Expansion count: 645
 		Elapsed Time: 0.008
+		Solution Cost: 87
 	world3:
 		Maximum Frontier Size: 961
 		Expansion count: 4526228
-		Time elapsed: 41.303
+		Time elapsed: 13.947
+		Solution Cost: 1349
 	world4:
-
+		Maximum Frontier Size: large
+		Expansion count: many
+		Time elapsed: +1 hour
+		Solution Cost: expensive
+	world5:
+		Maximum Frontier Size: 
+		Expansion count: 
+		Time elapsed: 
+		Solution Cost: 
+	world6:
+		Maximum Frontier Size: 
+		Expansion count: 
+		Time elapsed: 
+		Solution Cost: 
+	world7:
+		Maximum Frontier Size: 
+		Expansion count: 
+		Time elapsed: 
+		Solution Cost: 
+	world8:
+		Maximum Frontier Size: 
+		Expansion count: 
+		Time elapsed: 
+		Solution Cost: 
+	world9:
+		Maximum Frontier Size: 
+		Expansion count: 
+		Time elapsed: 
+		Solution Cost: 
+	world10:
+		Maximum Frontier Size: 
+		Expansion count: 
+		Time elapsed: 
+		Solution Cost: 
 
 We can construct the search tree implicitly using a node class.
 
