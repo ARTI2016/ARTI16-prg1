@@ -1,7 +1,7 @@
 package artiprg1;
 
 public class SearchNode{
-	private State state;
+	protected State state;
 	private SearchNode parent;
 	private String action;
 	private int cost;
