@@ -84,7 +84,7 @@ public class State {
 		return (currentPos.equals(home) && dirt.isEmpty() && !isOn);
 	}
 	
-	public Collection<String> legalActions() {
+	/*public Collection<String> legalActions() {
 		Collection<String> actions = new ArrayList<String>();
 		if(!isOn) {
 			actions.add("TURN_ON");
@@ -107,7 +107,7 @@ public class State {
 		actions.add("TURN_LEFT");
 		actions.add("TURN_RIGHT");
 		return actions;
-	}
+	}*/
 	
 	private boolean isObsticleInFront(){
 		switch(ori) {
@@ -213,7 +213,7 @@ public class State {
 		actions.add("TURN_LEFT");
 		actions.add("TURN_RIGHT");
 		return actions;
-	}*/
+	}
 	
 	private State copyState() {
 		State copy = new State();
