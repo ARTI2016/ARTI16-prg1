@@ -26,8 +26,8 @@ public class State {
 	
 	public State(State s) {
 		world = s.world;
-		this.dirt = new ArrayList<Coordinate>();
 		
+		this.dirt = new ArrayList<Coordinate>();
 		for(Coordinate d : s.dirt) {
 			this.dirt.add(new Coordinate(d.getX(), d.getY()));
 		}
