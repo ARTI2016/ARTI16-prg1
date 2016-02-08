@@ -1,6 +1,8 @@
 package artiprg1;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import artiprg1.State.Orientation;
 
@@ -71,8 +73,18 @@ public class SmartAgent implements Agent {
 				iState.world.setSize(new Coordinate(x_size, y_size));
 			}
 		}
-		searchResult = new DFS(iState);
-		((DFS) searchResult).printResults();
+		searchResult = new BFS(iState);
+		/*State b = new State(iState);
+		HashSet<State> testMap = new HashSet<State>();
+		testMap.add(new State(iState));
+		if(b.equals(iState)) {
+			System.out.println("iState equals b!");
+		}
+		if(testMap.contains(iState)) {
+			System.out.println("Set contains iState!");
+		}
+		System.exit(29);*/
+		//((DFS) searchResult).printResults();
     }
 
 	@Override

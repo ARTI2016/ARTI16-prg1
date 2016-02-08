@@ -8,7 +8,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BFS implements Search {
-	private HashSet<State> marked;
+	private HashSet<SearchNode> marked;
 	private Stack<String> successMoves;
 	private SearchNode root;
 	private Queue<SearchNode> frontier;
@@ -16,18 +16,22 @@ public class BFS implements Search {
     public BFS(State startingState)
     {
     	frontier = new LinkedList<SearchNode>();
-        marked = new HashSet<State>();
+        marked = new HashSet<SearchNode>();
         successMoves = new Stack<String>();
    
         root = new SearchNode(startingState, null, null);        
         successMoves.push("TURN_OFF");
+        SearchNode root2 = new SearchNode(startingState, null, null);
+        if(root.equals(root2)) {
+        	System.out.println("THEY'RE EQUALS");
+        } else System.out.println("THEY'RE NOT EQUALS");
         bfs();
     }
     
     private void bfs()
     {
         frontier.add(root);
-        marked.add(root.getState());
+        marked.add(root);
         
         while(!frontier.isEmpty())
         {
@@ -52,8 +56,13 @@ public class BFS implements Search {
             }
             for(SearchNode sn : adjacentSearchNodes)
             {
-                if(marked.add(sn.getState()))
-                    frontier.add(sn);
+            	if(!marked.add(new SearchNode(sn.getState(), sn.getAction(), sn.getParent()))) {
+            		System.out.println("OH SHIT CRASH");
+            		System.exit(666);
+            	}
+            	frontier.add(sn);
+                //if(marked.add(sn))
+                //    frontier.add(sn);
                 
             }
         }

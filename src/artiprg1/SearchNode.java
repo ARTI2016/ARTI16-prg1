@@ -8,7 +8,9 @@ public class SearchNode{
 	
 	public SearchNode(State state, String action, SearchNode parent){
 		this.state = new State(state);
-        this.action = action;
+		if(action == null) {
+			this.action = "";
+		} else this.action = action;
         this.parent = parent;
 	}
 	
@@ -37,5 +39,26 @@ public class SearchNode{
 		this.state = state;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof SearchNode) {
+			SearchNode s = (SearchNode) o;
+			if(s.getState().equals(this.getState()) && s.getAction().equals(this.getAction())
+					&& s.getCost() == this.getCost() && s.getParent() == this.getParent()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
+	@Override
+	public int hashCode() {
+		int hash = state.hashCode() * 3;
+		if(action != null) {
+			hash *= action.hashCode();
+		}
+		hash *= cost;
+		if(parent != null) hash *= parent.hashCode();
+		return hash;
+	}
 }

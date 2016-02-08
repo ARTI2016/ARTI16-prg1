@@ -47,4 +47,9 @@ public class Coordinate {
 
         return false;
     }
+	
+	@Override
+	public int hashCode() {
+		return (y*1039)*(x*2179);
+	}
 }

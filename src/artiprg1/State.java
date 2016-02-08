@@ -356,4 +356,27 @@ public class State {
             return true;
         return false;
     }
+	
+	@Override
+	public int hashCode() {
+		int hash = currentPos.hashCode() * 157;
+		if(isOn) {
+			hash = hash * 7;
+		} else {
+			hash = hash * 5;
+		}
+		for(Coordinate d : dirt) {
+			hash *= d.hashCode();
+		}
+		if(ori == Orientation.NORTH) {
+			hash *= 107;
+		} else if(ori == Orientation.SOUTH) {
+			hash *= 157;
+		} else if(ori == Orientation.EAST) {
+			hash *= 263;
+		} else if(ori == Orientation.WEST) {
+			hash *= 479;
+		}
+		return hash;
+	}
 }
