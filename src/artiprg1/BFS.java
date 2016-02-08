@@ -35,16 +35,15 @@ public class BFS implements Search {
             topNode.getState().printState();
             
             if( topNode.getState().isGoal()){
-            	for(SearchNode i = topNode; i != root; i = i.getParent()){
+            	for(SearchNode i = topNode; i != root; i = i.getParent())
             		successMoves.push(i.getAction());         	
-            	}
+       
             	return;
             }
                
             List<SearchNode> adjacentSearchNodes = new ArrayList<SearchNode>();
 			for(String action : topNode.getState().legalActions())
             {
-				System.out.println("Legal action:" + action);
                 SearchNode newSearchNode = new SearchNode(topNode.getState().expandState(action), action,topNode);
                 adjacentSearchNodes.add(newSearchNode);
             }
@@ -52,7 +51,6 @@ public class BFS implements Search {
             {
                 if( !marked.contains(sn.getState()) )
                 {
-                	System.out.println("Marked and added to frontair: " + sn.getAction());
                     marked.add(sn.getState());
                     frontier.add(sn);
                 }
