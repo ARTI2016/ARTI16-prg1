@@ -73,12 +73,10 @@ public class SmartAgent implements Agent {
 		}
 		/* 	
 		 	Switch search function to switch between search Algorithms.
-			BFS - Breadth First Search
-			DFS - Depth First Search
-			UniformCost - Uniform Cost Search (Cheapest First Search)
 			AStar - A* heuristics search
+			AStarBeam - A* beam search
 		*/
-		searchResult = new AStar(iState);
+		searchResult = new AStarBeam(iState);
     }
 
 	@Override

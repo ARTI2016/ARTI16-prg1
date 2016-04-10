@@ -30,7 +30,7 @@ class AStarNode extends SearchNode{
 		f = g + heuristic();
 	}
 	
-	private int heuristic() {
+	public int heuristic() {
 		int h = 0;
 		if(!state.dirt.isEmpty()){
 			h = (state.dirt.size()-1);
